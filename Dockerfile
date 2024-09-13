@@ -1,5 +1,5 @@
-# Use an official R base image
-FROM rocker/r-ver:4.1.0
+# Use a more recent official R base image
+FROM rocker/r-ver:4.3.0
 
 # Install system libraries, Node.js, and V8 dependencies
 RUN apt-get update && apt-get install -y \
@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
 # Ensure Node.js and NPM are installed correctly
 RUN npm install -g npm@latest
 
-# Reinstall the V8 R package after all dependencies are installed
-RUN R -e "install.packages(c('plumber', 'dplyr', 'mongolite', 'prophet', 'V8'))"
+# Install R packages
+RUN R -e "install.packages(c('plumber', 'dplyr', 'mongolite', 'prophet', 'V8', 'Rcpp', 'rlang'))"
 
 # Copy the app files into the Docker image
 COPY app.R /app/app.R
@@ -32,5 +32,6 @@ EXPOSE 8000
 
 # Run the Plumber API
 CMD ["R", "-e", "pr <- plumber::plumb('app.R'); pr$run(host='0.0.0.0', port=8000)"]
+
 
 
