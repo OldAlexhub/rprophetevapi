@@ -1,7 +1,7 @@
 # Use an official R base image
 FROM rocker/r-ver:4.1.0
 
-# Install system libraries and Node.js for V8
+# Install system libraries and Node.js for V8 (using Node.js 18.x)
 RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libssl-dev \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
   curl \
   g++ \
   build-essential && \
-  curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
+  curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   apt-get install -y nodejs
 
 # Install R packages
