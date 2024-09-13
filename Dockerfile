@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y \
   libxml2-dev \
   libgit2-dev \
   libv8-dev \
-  curl && \
+  curl \
+  g++ \
+  build-essential && \
   curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
   apt-get install -y nodejs
 
