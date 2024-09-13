@@ -1,13 +1,14 @@
 # Use an official R base image
 FROM rocker/r-ver:4.1.0
 
-# Install system libraries and Node.js for V8 (using Node.js 18.x)
+# Install system libraries, Node.js, and V8 dependencies
 RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libssl-dev \
   libxml2-dev \
   libgit2-dev \
   libv8-dev \
+  libnode-dev \
   curl \
   g++ \
   build-essential && \
@@ -28,3 +29,4 @@ EXPOSE 8000
 
 # Run the Plumber API
 CMD ["R", "-e", "pr <- plumber::plumb('app.R'); pr$run(host='0.0.0.0', port=8000)"]
+
