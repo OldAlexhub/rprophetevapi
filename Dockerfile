@@ -1,14 +1,13 @@
-# Use a more recent official R base image
+# Use an official R base image
 FROM rocker/r-ver:4.3.0
 
-# Install system libraries, Node.js, and V8 dependencies
+# Install system libraries and V8 dependencies (exclude libnode-dev)
 RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libssl-dev \
   libxml2-dev \
   libgit2-dev \
   libv8-dev \
-  libnode-dev \
   curl \
   g++ \
   build-essential && \
