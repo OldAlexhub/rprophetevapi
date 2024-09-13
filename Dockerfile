@@ -1,7 +1,7 @@
 # Use an official R base image
 FROM rocker/r-ver:4.3.0
 
-# Install system libraries and V8 dependencies (exclude libnode-dev)
+# Install system libraries and remove conflicting libnode-dev before installing Node.js 18.x
 RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libssl-dev \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   curl \
   g++ \
   build-essential && \
+  apt-get remove -y libnode-dev && \
   curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   apt-get install -y nodejs
 
@@ -31,6 +32,7 @@ EXPOSE 8000
 
 # Run the Plumber API
 CMD ["R", "-e", "pr <- plumber::plumb('app.R'); pr$run(host='0.0.0.0', port=8000)"]
+
 
 
 
